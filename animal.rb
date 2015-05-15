@@ -15,24 +15,11 @@ class Bird < Animal
 end
 
 class Zoo
-  def initialize
+  def initialize(animals)
 
-      @animals = Array.new
-      @animals << Mammal.new("Tommy", 4, "dog")
-      @animals << Mammal.new("Katy", 4, "cat")
-      @animals << Bird.new("Birdy", 2, "bird")
-
+      @animals = animals
 
   end
-
-  # def add_animal()
-
-  #     @animals = Array.new
-  #     @animals << Animal.new("Tommy", 4, false, "mammals", "dog")
-  #     @animals << Animal.new("Katy", 4, false, "mammals", "cat")
-  #     @animals << Animal.new("Birdy", 2, true, "birds", "bird")
-  #     # @animals << Animal.new(@name, @legs, @fly, @kind, @type)
-  # end
 
   def search(keyword)
         case keyword[0]
@@ -87,9 +74,15 @@ input = gets.chomp.downcase
 keyword = input.partition(",")
 keyword.delete_at(1)
 
-zoo = Zoo.new
-# zoo.add_animal
+
+animals = [Mammal.new("Tommy", 4, "dog"), Mammal.new("Katy", 4, "cat"), Bird.new("Birdy", 2, "bird")]
+
+zoo = Zoo.new(animals)
 zoo.search(keyword)
 
-# zoo.add_animal("Katy", 4, false, "mammals", "cat")
+
+
+
+
+
 
