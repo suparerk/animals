@@ -21,44 +21,44 @@ class Zoo
 
   end
 
-  def search(keyword)
-        case keyword[0]
+  def search(keyword, value)
+        case keyword
         when "name"
             @animals.each do |a|
-              if a.name == keyword[1].capitalize
+              if a.name == value.capitalize
                 puts "#{a.name} is a #{a.type} and has #{a.legs} legs"
               end
             end
         when "legs"
             @animals.each do |a|
-              if a.legs.to_i == keyword[1].to_i
+              if a.legs.to_i == value.to_i
                 puts "#{a.name} is a #{a.type} and has #{a.legs} legs"
               end
             end
         when "fly"
             @animals.each do |a|
-              if keyword[1] == "true"
-                if a.instance_of? Bird 
+              if value == "true"
+                if a.instance_of? Bird
                   puts "#{a.name} is a #{a.type} with #{a.legs} legs and can fly!"
                 end
-              elsif !a.instance_of? Bird 
-                
+              elsif !a.instance_of? Bird
+
                   puts "#{a.name} is a #{a.type} with #{a.legs} legs and cannot fly!"
               end
-             end 
+             end
         when "kind"
             @animals.each do |a|
-              if keyword[1] == "mammals"
-                if a.instance_of? Mammal 
+              if value == "mammals"
+                if a.instance_of? Mammal
                   puts "#{a.name} is a #{a.type} and has #{a.legs} legs  "
                 end
-              elsif keyword[1] == "birds"           
-                  puts "#{a.name} is a #{a.type} and has #{a.legs} legs  "  unless !a.instance_of? Bird              
+              elsif value == "birds"
+                  puts "#{a.name} is a #{a.type} and has #{a.legs} legs  "  unless !a.instance_of? Bird
               end
-             end 
+             end
         when "type"
             @animals.each do |a|
-              if a.type == keyword[1]
+              if a.type == value
                 puts "#{a.name} is a #{a.type} and has #{a.legs} legs"
               end
             end
@@ -78,7 +78,8 @@ keyword.delete_at(1)
 animals = [Mammal.new("Tommy", 4, "dog"), Mammal.new("Katy", 4, "cat"), Bird.new("Birdy", 2, "bird")]
 
 zoo = Zoo.new(animals)
-zoo.search(keyword)
+zoo.send( :search, keyword[0], keyword[1])
+
 
 
 
