@@ -1,6 +1,6 @@
 class Animal
-   attr_accessor :name, :legs, :kind, :type
-   def initialize(name, legs, type)
+   attr_accessor :name, :type, :legs
+   def initialize(name, type)
       @name     = name
       @legs     = legs
       @type     = type
@@ -8,32 +8,51 @@ class Animal
 end
 
 class Mammal < Animal
-
+  def initialize(name, type, legs = 4)
+      @name     = name
+      @legs     = legs
+      @type     = type
+  end
 end
 class Bird < Animal
-
+  attr_accessor :fly
+  def initialize(name, type, legs = 2)
+      @fly      = true
+      @name     = name
+      @legs     = legs
+      @type     = type
+  end
 end
 
 class Zoo
   def initialize(animals)
 
       @animals = animals
-
   end
-  def search2(keyword, value)
-      case keyword
-      when "name"
-              @animals.find  {|x| x.name == "value"}
+  
 
-                puts "#{x.name} is a #{x.type} and has #{x.legs} legs"
-      when "legs"
-      when "fly"
-      when "kind"
-      when "type"
-      else
-        puts "Keyword is not valid"
+  def search(key, value)
+
+      @animals.each do |animal|
+        if key != "fly" && key != "class"
+          if animal.send(key).to_s == value.to_s
+            puts animal
+          end
+        elsif key == "fly"
+            if value.to_s == "true"
+              puts animal unless !animal.instance_of? Bird
+            elsif value.to_s == "false"
+              puts animal unless animal.instance_of? Bird  
+            end           
+        elsif key == "class"
+            if value == "mammal"
+              puts animal  unless !animal.instance_of? Mammal
+
+            elsif value == "bird"
+              puts animal  unless !animal.instance_of? Bird
+            end
+        end
       end
-
   end
 end
 
@@ -44,12 +63,10 @@ keyword = input.partition(",")
 keyword.delete_at(1)
 
 
-animals = [Mammal.new("Tommy", 4, "dog"), Mammal.new("Katy", 4, "cat"), Bird.new("Birdy", 2, "bird")]
-
+animals = [Mammal.new("tommy", "dog"), Mammal.new("katy", "cat"), Bird.new("birdy", "bird"), Mammal.new("John", "Human", 2)]
 zoo = Zoo.new(animals)
-# zoo.send( :search, keyword[0], keyword[1])
-zoo.send( :search2, keyword[0], keyword[1])
-
+zoo.search(keyword[0], keyword[1])
+# zoo.display
 
 
 
